@@ -12,7 +12,7 @@ Included Swagger UI version: 2.2.5.
 
 Example application:
 
-```
+```python
 from flask import Flask
 from swagger_ui import get_swaggerui_blueprint
 
@@ -51,7 +51,7 @@ In addition, some of the OAuth fields are exposed to special variables that will
 
 Blueprint defaults are listed below (should match SwaggerUI defaults).
 
-```
+```python
 {
         # OAuth related
         'app_name': 'null',
