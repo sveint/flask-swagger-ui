@@ -37,7 +37,7 @@ setup(
 
     package_data={
         'flask_swagger_ui': [
-            '../README.md',
+            'README.md',
             'templates/*.html',
             'dist/VERSION',
             'dist/LICENSE',
