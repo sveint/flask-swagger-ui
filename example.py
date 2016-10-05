@@ -11,7 +11,6 @@ API_URL = 'http://petstore.swagger.io/v2/swagger.json'  # Our API url (can of co
 swaggerui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,  # Swagger UI static files will be mapped to '{SWAGGER_URL}/dist/'
     API_URL,
-    app_name='Pet Store Example',
     config={  # Swagger UI config overrides
         'supportedSubmitMethods': ['get']
     }
