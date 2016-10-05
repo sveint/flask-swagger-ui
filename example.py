@@ -21,6 +21,6 @@ swaggerui_blueprint = get_swaggerui_blueprint(
 # (URL must match the one given to factory function above)
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
-app.run(debug=True)
+app.run()
 
-# Now go to localhost:5000/api/docs/
+# Now point your browser to localhost:5000/api/docs/
