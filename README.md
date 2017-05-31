@@ -2,7 +2,7 @@
 
 Simple Flask blueprint for adding [Swagger UI](https://github.com/swagger-api/swagger-ui) to your flask application.
 
-Included Swagger UI version: 2.2.8.
+Included Swagger UI version: 3.0.12.
 
 ## Installation
 
@@ -27,8 +27,16 @@ swaggerui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,  # Swagger UI static files will be mapped to '{SWAGGER_URL}/dist/'
     API_URL,
     config={  # Swagger UI config overrides
-        'supportedSubmitMethods': ['get']
-    }
+        'app_name': "Test application"
+    },
+    # oauth_config={  # OAuth config. See https://github.com/swagger-api/swagger-ui#oauth2-configuration .
+    #    'clientId': "your-client-id",
+    #    'clientSecret': "your-client-secret-if-required",
+    #    'realm': "your-realms",
+    #    'appName': "your-app-name",
+    #    'scopeSeparator': " ",
+    #    'additionalQueryStringParams': {'test': "hello"}
+    # }
 )
 
 # Register blueprint at URL
@@ -46,23 +54,6 @@ app.run()
 The blueprint supports overloading all Swagger UI configuration options that can be JSON serialized.
 See https://github.com/swagger-api/swagger-ui#parameters for options.
 
-In addition, some of the OAuth fields are exposed to special variables that will be rendered into the relevant function.
+Plugins and function parameters are not supported at this time.
 
-Blueprint defaults are listed below (should match SwaggerUI defaults).
-
-```python
-{
-        # OAuth related
-        'app_name': 'null',
-        'client_realm': 'null',
-        'client_id': 'null',
-        'client_secret': 'null',
-
-        # SwaggerUI base configuration, see https://github.com/swagger-api/swagger-ui#parameters
-        'docExpansion': "none",
-        'jsonEditor': False,
-        'defaultModelRendering': 'schema',
-        'showRequestHeaders': False,
-        'supportedSubmitMethods': ['get', 'post', 'put', 'delete', 'patch']
-}
-```
+OAuth2 parameters can be found at https://github.com/swagger-api/swagger-ui#oauth2-configuration .

@@ -3,7 +3,7 @@ import json
 from flask import Blueprint, send_from_directory, render_template
 
 
-def get_swaggerui_blueprint(base_url, api_url, config=None):
+def get_swaggerui_blueprint(base_url, api_url, config=None, oauth_config=None):
 
     swagger_ui = Blueprint('swagger_ui',
                            __name__,
@@ -11,32 +11,25 @@ def get_swaggerui_blueprint(base_url, api_url, config=None):
                            template_folder='templates')
 
     default_config = {
-        'client_realm': 'null',
-        'client_id': 'null',
-        'client_secret': 'null',
-        'app_name': 'null',
-        'docExpansion': "none",
-        'jsonEditor': False,
-        'defaultModelRendering': 'schema',
-        'showRequestHeaders': False,
-        'supportedSubmitMethods': ['get', 'post', 'put', 'delete', 'patch']
+        'app_name': 'Swagger UI',
+        'dom_id': '#swagger-ui',
+        'url': api_url,
+        'layout': 'StandaloneLayout'
     }
 
     if config:
         default_config.update(config)
 
     fields = {
-        # Some fields are used in functions etc, so we treat them special
+        # Some fields are used directly in template
         'base_url': base_url,
-        'api_url': api_url,
         'app_name': default_config.pop('app_name'),
-        'client_realm': default_config.pop('client_realm'),
-        'client_id': default_config.pop('client_id'),
-        'client_secret': default_config.pop('client_secret'),
-
         # Rest are just serialized into json string for inclusion in the .js file
-        'config_json': json.dumps(default_config)
+        'config_json': json.dumps(default_config),
+
     }
+    if oauth_config:
+        fields['oauth_config_json'] = json.dumps(oauth_config)
 
     @swagger_ui.route('/')
     @swagger_ui.route('/<path:path>')
