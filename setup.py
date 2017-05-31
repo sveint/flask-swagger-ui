@@ -10,7 +10,7 @@ with open(path.join(here, 'flask_swagger_ui/README.md'), encoding='utf-8') as f:
 
 setup(
     name='flask-swagger-ui',
-    version='3.0.12',
+    version='3.0.12a',
     description='Swagger UI blueprint for Flask',
     long_description=long_description,
 
@@ -44,12 +44,8 @@ setup(
             'dist/README.md',
             'dist/*.html',
             'dist/*.js',
-            'dist/*/*.js',
-            'dist/*/*.css',
-            'dist/*/*.gif',
-            'dist/*/*.png',
-            'dist/*/*.ico',
-            'dist/*/*.ttf',
+            'dist/*.css',
+            'dist/*.png'
         ],
     }
 )
