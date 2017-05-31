@@ -5,12 +5,12 @@ from os import path
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+with open(path.join(here, 'flask_swagger_ui/README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
     name='flask-swagger-ui',
-    version='0.0.3',
+    version='3.0.12',
     description='Swagger UI blueprint for Flask',
     long_description=long_description,
 
