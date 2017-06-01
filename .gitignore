@@ -87,3 +87,5 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+!flask_swagger_ui/dist/
