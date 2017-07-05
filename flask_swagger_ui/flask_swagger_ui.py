@@ -23,6 +23,7 @@ def get_swaggerui_blueprint(base_url, api_url, config=None, oauth_config=None):
     fields = {
         # Some fields are used directly in template
         'base_url': base_url,
+        'cdn_url': 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.0.17',
         'app_name': default_config.pop('app_name'),
         # Rest are just serialized into json string for inclusion in the .js file
         'config_json': json.dumps(default_config),
