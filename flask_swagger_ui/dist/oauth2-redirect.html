@@ -35,7 +35,7 @@
             if (qp.code) {
                 delete oauth2.state;
                 oauth2.auth.code = qp.code;
-                oauth2.callback(oauth2.auth);
+                oauth2.callback(oauth2);
             } else {
                 oauth2.errCb({
                     authId: oauth2.auth.name,
