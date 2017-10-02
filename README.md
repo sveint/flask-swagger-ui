@@ -2,7 +2,7 @@
 
 Simple Flask blueprint for adding [Swagger UI](https://github.com/swagger-api/swagger-ui) to your flask application.
 
-Included Swagger UI version: 3.0.12.
+Included Swagger UI version: 3.3.0.
 
 ## Installation
 
