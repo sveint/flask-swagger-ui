@@ -35,7 +35,7 @@ def get_swaggerui_blueprint(base_url, api_url, config=None, oauth_config=None):
     @swagger_ui.route('/<path:path>')
     def show(path=None):
         if not path or path == 'index.html':
-            if not config.get('oauth2RedirectUrl', None):
+            if not default_config.get('oauth2RedirectUrl', None):
                 default_config.update(
                     {"oauth2RedirectUrl": "%s/oauth2-redirect.html" % request.base_url}
                 )
