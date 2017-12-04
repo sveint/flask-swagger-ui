@@ -22,11 +22,8 @@ setup(
 
     classifiers=[
         'Development Status :: 4 - Beta',
-
         'Intended Audience :: Developers',
-
         'License :: OSI Approved :: MIT License',
-
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
@@ -34,7 +31,7 @@ setup(
 
     keywords='flask swagger',
     packages=['flask_swagger_ui'],
-
+    install_requires=['flask']
     package_data={
         'flask_swagger_ui': [
             'README.md',
