@@ -32,7 +32,7 @@ setup(
 
     keywords='flask swagger',
     packages=['flask_swagger_ui'],
-    install_requires=['flask']
+    install_requires=['flask'],
     package_data={
         'flask_swagger_ui': [
             'README.md',
