@@ -10,7 +10,7 @@ with open(path.join(here, 'flask_swagger_ui/README.md'), encoding='utf-8') as f:
 
 setup(
     name='flask-swagger-ui',
-    version='3.0.12a',
+    version='3.6.0',
     description='Swagger UI blueprint for Flask',
     long_description=long_description,
     zip_safe=False,
