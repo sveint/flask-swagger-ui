@@ -3,9 +3,15 @@ import json
 from flask import Blueprint, send_from_directory, render_template, request
 
 
-def get_swaggerui_blueprint(base_url, api_url, config=None, oauth_config=None):
+def get_swaggerui_blueprint(
+        base_url,
+        api_url,
+        config=None,
+        oauth_config=None,
+        blueprint_name='swagger_ui'
+):
 
-    swagger_ui = Blueprint('swagger_ui',
+    swagger_ui = Blueprint(blueprint_name,
                            __name__,
                            static_folder='dist',
                            template_folder='templates')
