@@ -89,3 +89,6 @@ ENV/
 .ropeproject
 
 !flask_swagger_ui/dist/
+
+# PyCharm
+.idea/
