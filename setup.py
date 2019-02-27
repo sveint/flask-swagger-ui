@@ -10,7 +10,7 @@ with open(path.join(here, 'flask_swagger_ui/README.md'), encoding='utf-8') as f:
 
 setup(
     name='flask-swagger-ui',
-    version='3.18.0',
+    version='3.20.9',
     description='Swagger UI blueprint for Flask',
     long_description=long_description,
     zip_safe=False,
@@ -28,6 +28,8 @@ setup(
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
     ],
 
     keywords='flask swagger',
@@ -35,6 +37,7 @@ setup(
     install_requires=['flask'],
     package_data={
         'flask_swagger_ui': [
+            'LICENSE',
             'README.md',
             'templates/*.html',
             'dist/VERSION',
