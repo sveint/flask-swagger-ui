@@ -13,6 +13,7 @@ setup(
     version='3.25.0',
     description='Swagger UI blueprint for Flask',
     long_description=long_description,
+    long_description_content_type="text/markdown",
     zip_safe=False,
 
     url='https://github.com/sveint/flask-swagger-ui',
