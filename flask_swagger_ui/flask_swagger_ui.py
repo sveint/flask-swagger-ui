@@ -20,7 +20,8 @@ def get_swaggerui_blueprint(
         'app_name': 'Swagger UI',
         'dom_id': '#swagger-ui',
         'url': api_url,
-        'layout': 'StandaloneLayout'
+        'layout': 'StandaloneLayout',
+        'deepLinking': True
     }
 
     if config:
