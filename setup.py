@@ -44,6 +44,7 @@ setup(
             "dist/*.js",
             "dist/*.css",
             "dist/*.png",
+            "dist/*.map",
         ]
     },
 )
