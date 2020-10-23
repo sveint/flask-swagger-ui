@@ -39,9 +39,7 @@ swaggerui_blueprint = get_swaggerui_blueprint(
     # }
 )
 
-# Register blueprint at URL
-# (URL must match the one given to factory function above)
-app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+app.register_blueprint(swaggerui_blueprint)
 
 app.run()
 
