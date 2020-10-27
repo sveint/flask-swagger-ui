@@ -36,6 +36,22 @@
 <script src="{{base_url}}/swagger-ui-bundle.js"> </script>
 <script src="{{base_url}}/swagger-ui-standalone-preset.js"> </script>
 <script>
+function parse_function(value) {
+    var function_value = undefined;
+    try {
+        var evaluated_value = eval(value);
+        if (typeof(evaluated_value) === 'function') {
+            function_value = evaluated_value; 
+        } else {
+            console.error(`error evaluating function for config attribute ${attrname}. Not a function (${typeof(evaluated_value)}).`);
+        }
+    }
+    catch(e) {
+        console.error(`error evaluating function "${user_config[attrname]}" for config attribute ${attrname}. Exception: `, e);
+    }
+    return function_value
+}
+
 var config = {
   presets: [
     SwaggerUIBundle.presets.apis,
@@ -46,7 +62,16 @@ var config = {
   ]
 };
 var user_config = {{config_json|safe}};  // User config options provided from Python code
-for (var attrname in user_config) { config[attrname] = user_config[attrname]; }
+var function_array = ["requestInterceptor", "responseInterceptor", "operationsSorter", "tagsSorter", "onComplete"];
+for (var attrname in user_config) {
+    if (function_array.indexOf(attrname) > -1) {
+        config[attrname] = parse_function(user_config[attrname]);
+    }
+    else {
+        config[attrname] = user_config[attrname]; 
+    }
+
+}
 
 window.onload = function() {
   // Build a system
