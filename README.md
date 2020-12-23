@@ -27,7 +27,8 @@ swaggerui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,  # Swagger UI static files will be mapped to '{SWAGGER_URL}/dist/'
     API_URL,
     config={  # Swagger UI config overrides
-        'app_name': "Test application"
+        'app_name': "Test application",
+        'requestInterceptor' : 'function requestInterceptor(request) {return request;}'
     },
     # oauth_config={  # OAuth config. See https://github.com/swagger-api/swagger-ui#oauth2-configuration .
     #    'clientId': "your-client-id",
@@ -52,6 +53,9 @@ app.run()
 The blueprint supports overloading all Swagger UI configuration options that can be JSON serialized.
 See https://github.com/swagger-api/swagger-ui#parameters for options.
 
-Plugins and function parameters are not supported at this time.
+Function parameters are supported in the form of strings that are evaluated as javascript. They must
+define a function that is of the same name as the parameter.
+
+Plugins are not supported at this time.
 
 OAuth2 parameters can be found at https://github.com/swagger-api/swagger-ui#oauth2-configuration .

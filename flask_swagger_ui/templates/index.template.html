@@ -48,6 +48,33 @@ var config = {
 var user_config = {{config_json|safe}};  // User config options provided from Python code
 for (var attrname in user_config) { config[attrname] = user_config[attrname]; }
 
+// Parse a string to a javascript function.
+// If it's not possible to parse it to a function, return the string.
+function parse_function(function_name, value) {
+  try {
+    eval(value);
+    var evaluated_value = eval(function_name);
+    if (typeof(evaluated_value) === 'function') {
+        return evaluated_value;
+    } else {
+      console.error(`error evaluating function for config attribute ${attrname}. Not a function (${typeof(evaluated_value)}).`);
+    }
+  }
+  catch(e) {
+    console.error(`error evaluating function "${user_config[attrname]}" for config attribute ${attrname}. Exception: `, e);
+  }
+
+  return value;
+}
+
+// For all the function attributes, parse them if they're present.
+var function_attrs = ["requestInterceptor", "responseInterceptor", "operationsSorter", "tagsSorter", "onComplete"];
+function_attrs.forEach(function f(function_attr) {
+  if (function_attr in config) {
+    config[function_attr] = parse_function(function_attr, config[function_attr])
+  }
+});
+
 window.onload = function() {
   // Build a system
   const ui = SwaggerUIBundle(config)
