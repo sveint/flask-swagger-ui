@@ -29,6 +29,8 @@ def get_swaggerui_blueprint(
     if site_url is not None:
         base_url = site_url + base_url
 
+    print(base_url)
+
     fields = {
         # Some fields are used directly in template
         "base_url": base_url,
