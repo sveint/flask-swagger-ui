@@ -4,7 +4,7 @@ from flask import Blueprint, send_from_directory, render_template, request
 
 
 def get_swaggerui_blueprint(
-    base_url, api_url, config=None, oauth_config=None, blueprint_name="swagger_ui"
+    base_url, api_url, config=None, oauth_config=None, blueprint_name="swagger_ui", site_url=None
 ):
 
     swagger_ui = Blueprint(
@@ -25,6 +25,9 @@ def get_swaggerui_blueprint(
 
     if config:
         default_config.update(config)
+
+    if site_url is not None:
+        base_url = site_url + base_url
 
     fields = {
         # Some fields are used directly in template
