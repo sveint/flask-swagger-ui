@@ -50,7 +50,7 @@ app.run()
 ## Configuration
 
 The blueprint supports overloading all Swagger UI configuration options that can be JSON serialized.
-See https://github.com/swagger-api/swagger-ui#parameters for options.
+See https://github.com/swagger-api/swagger-ui/blob/master/docs/usage/configuration.md#parameters for options.
 
 Plugins and function parameters are not supported at this time.
 
