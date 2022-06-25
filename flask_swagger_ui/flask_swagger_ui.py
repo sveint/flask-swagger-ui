@@ -4,7 +4,7 @@ from flask import Blueprint, send_from_directory, render_template, request
 
 
 def get_swaggerui_blueprint(
-    base_url, api_url, config=None, oauth_config=None, blueprint_name="swagger_ui"
+    base_url, api_url, config=None, oauth_config=None, blueprint_name="swagger_ui", icons=None
 ):
 
     swagger_ui = Blueprint(
@@ -26,12 +26,22 @@ def get_swaggerui_blueprint(
     if config:
         default_config.update(config)
 
+    if icons is None:
+        icons = [{
+            "href": f"{base_url}/favicon-32x32.png",
+            "sizes": "32x32"
+        }, {
+            "href": f"{base_url}/favicon-16x16.png",
+            "sizes": "16x16"
+        }]
+
     fields = {
         # Some fields are used directly in template
         "base_url": base_url,
         "app_name": default_config.pop("app_name"),
         # Rest are just serialized into json string for inclusion in the .js file
         "config_json": json.dumps(default_config),
+        "icons": icons
     }
     if oauth_config:
         fields["oauth_config_json"] = json.dumps(oauth_config)

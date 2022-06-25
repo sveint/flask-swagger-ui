@@ -7,8 +7,9 @@
   <title>{{app_name}}</title>
   <link rel="stylesheet" type="text/css" href="{{base_url}}/index.css">
   <link rel="stylesheet" type="text/css" href="{{base_url}}/swagger-ui.css">
-  <link rel="icon" type="image/png" href="{{base_url}}/favicon-32x32.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="{{base_url}}/favicon-16x16.png" sizes="16x16" />
+    {% for icon in icons %}
+        <link rel="icon" type="image/png" href="{{ icon.href }}" {% if 'sizes' in icon %} sizes="{{ icon.sizes }}" {% endif %}/>
+    {% endfor %}
 </head>
 
 <body>
