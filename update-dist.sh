@@ -7,7 +7,9 @@ pushd flask_swagger_ui/dist > /dev/null
 
 OUTPUT_FILE=${RELEASE}.tar.gz
 curl -s https://api.github.com/repos/swagger-api/swagger-ui/releases/latest | grep tarball_url | cut -d '"' -f 4 | wget -q -O "${OUTPUT_FILE}" -i -
-tar --wildcards --strip-components=2 -xvf ${OUTPUT_FILE} '*/dist'
+# Check if GNU or BSD tar
+WILDCARD_FLAG=$(tar --version | grep -q GNU && echo "--wildcards" || echo "")
+tar $WILDCARD_FLAG --strip-components=2 -xvf ${OUTPUT_FILE} '*/dist'
 echo "${RELEASE}" > VERSION
 rm index.html
 rm ${OUTPUT_FILE}
