@@ -1,6 +1,6 @@
 import os
 import json
-from flask import Blueprint, send_from_directory, render_template, request
+from flask import Blueprint, send_from_directory, render_template, request, url_for
 
 
 def get_swaggerui_blueprint(
@@ -28,7 +28,6 @@ def get_swaggerui_blueprint(
 
     fields = {
         # Some fields are used directly in template
-        "base_url": base_url,
         "app_name": default_config.pop("app_name"),
         # Rest are just serialized into json string for inclusion in the .js file
         "config_json": json.dumps(default_config),
@@ -49,7 +48,7 @@ def get_swaggerui_blueprint(
                     }
                 )
                 fields["config_json"] = json.dumps(default_config)
-            return render_template("index.template.html", **fields)
+            return render_template("index.template.html", base_url=url_for(".show"), **fields)
         else:
             return send_from_directory(
                 # A bit of a hack to not pollute the default /static path with our files.
