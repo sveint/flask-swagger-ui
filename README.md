@@ -6,6 +6,19 @@ Included Swagger UI version: 5.21.0.
 
 **This project is not actively maintained, but might receive occasional updates. Please fork it if you need a newer version.**
 
+This fork added password protection to the swagger endpoint. 
+If you create an environment variable like,
+
+SWAGGER_PASSWORD=abc
+
+Then you will need to pass a query parameter in the URL like,
+
+http://mysite.com/swagger/?pass=abc
+
+If you dont have the environment variable then endpoint is not password protected and you can access it as per normal
+
+http://mysite.com/swagger/
+
 ## Installation
 
 `pip install flask-swagger-ui`
