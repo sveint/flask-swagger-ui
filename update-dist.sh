@@ -1,6 +1,7 @@
 #!/bin/bash
 
-LATEST_RELEASE=$(curl -s https://api.github.com/repos/swagger-api/swagger-ui/releases/latest)
+RELEASES_URL="https://api.github.com/repos/swagger-api/swagger-ui/releases"
+LATEST_RELEASE=$(curl -s $RELEASES_URL/latest)
 RELEASE=$(echo "$LATEST_RELEASE" | grep tag_name | cut -d '"' -f 4)
 echo "Downloading release ${RELEASE}"
 
@@ -16,3 +17,7 @@ echo "${RELEASE}" > VERSION
 rm index.html
 rm ${OUTPUT_FILE}
 popd > /dev/null
+
+RELEASE_NUMBER=$(echo "${RELEASE}" | sed 's/^v//g')
+git add flask_swagger_ui/dist
+git commit -m "Update to version ${RELEASE_NUMBER}" -m "see $RELEASES_URL/tag/${RELEASE}"
