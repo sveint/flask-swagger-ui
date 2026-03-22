@@ -2,7 +2,9 @@
 
 Simple Flask blueprint for adding [Swagger UI](https://github.com/swagger-api/swagger-ui) to your flask application.
 
-Included Swagger UI version: 5.18.2.
+Included Swagger UI version: 5.21.0.
+
+**This project is not actively maintained, but might receive occasional updates. Please fork it if you need a newer version.**
 
 ## Installation
 
@@ -20,7 +22,7 @@ app = Flask(__name__)
 
 
 SWAGGER_URL = '/api/docs'  # URL for exposing Swagger UI (without trailing '/')
-API_URL = 'http://petstore.swagger.io/v2/swagger.json'  # Our API url (can of course be a local resource)
+API_URL = 'https://petstore.swagger.io/v2/swagger.json'  # Our API url (can of course be a local resource)
 
 # Call factory function to create our blueprint
 swaggerui_blueprint = get_swaggerui_blueprint(
