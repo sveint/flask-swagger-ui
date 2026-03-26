@@ -1,3 +1,13 @@
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#     "flask",
+#     "flask-swagger-ui",
+# ]
+# [tool.uv.sources]
+# flask-swagger-ui = { path = "." }
+# ///
+
 from flask import Flask
 from flask_swagger_ui import get_swaggerui_blueprint
 

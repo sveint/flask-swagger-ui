@@ -1,11 +1,9 @@
 from setuptools import setup
-from codecs import open
 from os import path
 
 here = path.abspath(path.dirname(__file__))
 
-# Get the long description from the README file
-with open(path.join(here, "flask_swagger_ui/README.md"), encoding="utf-8") as f:
+with open(path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
@@ -23,12 +21,9 @@ setup(
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.6",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
     ],
+    python_requires=">=3.8",
     keywords="flask swagger",
     packages=["flask_swagger_ui"],
     install_requires=["flask"],
@@ -44,7 +39,6 @@ setup(
             "dist/*.js",
             "dist/*.css",
             "dist/*.png",
-            "dist/*.map",
         ]
     },
 )

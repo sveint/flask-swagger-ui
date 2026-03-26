@@ -1,6 +1,8 @@
-import os
 import json
+import os
 from flask import Blueprint, send_from_directory, render_template, request
+
+_DIST_DIR = os.path.join(os.path.dirname(__file__), "dist")
 
 
 def get_swaggerui_blueprint(
@@ -10,7 +12,6 @@ def get_swaggerui_blueprint(
     swagger_ui = Blueprint(
         blueprint_name,
         __name__,
-        static_folder="dist",
         template_folder="templates",
         url_prefix=base_url,
     )
@@ -26,35 +27,29 @@ def get_swaggerui_blueprint(
     if config:
         default_config.update(config)
 
-    fields = {
-        # Some fields are used directly in template
-        "base_url": base_url,
-        "app_name": default_config.pop("app_name"),
-        # Rest are just serialized into json string for inclusion in the .js file
-        "config_json": json.dumps(default_config),
-    }
+    app_name = default_config.pop("app_name")
+
+    oauth_fields = {}
     if oauth_config:
-        fields["oauth_config_json"] = json.dumps(oauth_config)
+        oauth_fields["oauth_config_json"] = json.dumps(oauth_config)
 
     @swagger_ui.route("/")
     @swagger_ui.route("/<path:path>")
     def show(path=None):
         if not path or path == "index.html":
-            if not default_config.get("oauth2RedirectUrl", None):
-                default_config.update(
-                    {
-                        "oauth2RedirectUrl": os.path.join(
-                            request.base_url, "oauth2-redirect.html"
-                        )
-                    }
+            request_config = dict(default_config)
+            if "oauth2RedirectUrl" not in request_config:
+                request_config["oauth2RedirectUrl"] = (
+                    request.base_url.rstrip("/") + "/oauth2-redirect.html"
                 )
-                fields["config_json"] = json.dumps(default_config)
-            return render_template("index.template.html", **fields)
-        else:
-            return send_from_directory(
-                # A bit of a hack to not pollute the default /static path with our files.
-                os.path.join(swagger_ui.root_path, swagger_ui._static_folder),
-                path,
+            return render_template(
+                "index.template.html",
+                base_url=base_url,
+                app_name=app_name,
+                config_json=json.dumps(request_config),
+                **oauth_fields,
             )
+        else:
+            return send_from_directory(_DIST_DIR, path)
 
     return swagger_ui
