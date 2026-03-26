@@ -1,8 +1,11 @@
 import json
 import os
+from importlib.metadata import version
+
 from flask import Blueprint, send_from_directory, render_template, request
 
 _DIST_DIR = os.path.join(os.path.dirname(__file__), "dist")
+_VERSION = version("flask-swagger-ui")
 
 
 def get_swaggerui_blueprint(
@@ -47,6 +50,7 @@ def get_swaggerui_blueprint(
                 base_url=base_url,
                 app_name=app_name,
                 config_json=json.dumps(request_config),
+                version=_VERSION,
                 **oauth_fields,
             )
         else:

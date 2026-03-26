@@ -68,6 +68,10 @@ jobs:
         (needs.update.outputs.changed == 'true')
       )
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version_check.outputs.version }}
+      on_test_pypi: ${{ steps.version_check.outputs.on_test_pypi }}
+      on_pypi: ${{ steps.version_check.outputs.on_pypi }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -86,6 +90,27 @@ jobs:
           enable-cache: false
       - name: Run e2e test
         run: ./test.sh
+      - name: Check if version exists on PyPI indexes
+        id: version_check
+        run: |
+          VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
+          if curl -sf "https://test.pypi.org/pypi/flask-swagger-ui/${VERSION}/json" > /dev/null 2>&1; then
+            echo "on_test_pypi=true" >> "$GITHUB_OUTPUT"
+            echo "${VERSION} already on TestPyPI"
+          else
+            echo "on_test_pypi=false" >> "$GITHUB_OUTPUT"
+            echo "${VERSION} not on TestPyPI"
+          fi
+
+          if curl -sf "https://pypi.org/pypi/flask-swagger-ui/${VERSION}/json" > /dev/null 2>&1; then
+            echo "on_pypi=true" >> "$GITHUB_OUTPUT"
+            echo "${VERSION} already on PyPI"
+          else
+            echo "on_pypi=false" >> "$GITHUB_OUTPUT"
+            echo "${VERSION} not on PyPI"
+          fi
       - name: Store package artifact
         uses: actions/upload-artifact@v5
         with:
@@ -95,10 +120,10 @@ jobs:
 
   test-pypi-publish:
     name: Publish to TestPyPI
-    needs: [update, build]
+    needs: [build]
     if: |
-      always() && needs.build.result == 'success' &&
-      needs.update.outputs.changed == 'true'
+      needs.build.result == 'success' &&
+      needs.build.outputs.on_test_pypi == 'false'
     runs-on: ubuntu-latest
     environment:
       name: test
@@ -120,9 +145,9 @@ jobs:
     name: Smoke test from TestPyPI
     permissions:
       contents: read
-    needs: [update, test-pypi-publish]
+    needs: [build, test-pypi-publish]
     if: |
-      always() && needs.test-pypi-publish.result == 'success'
+      needs.test-pypi-publish.result == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
@@ -141,10 +166,11 @@ jobs:
 
   pypi-publish:
     name: Publish to PyPI
-    needs: [update, build, smoke-test]
+    needs: [build, smoke-test]
     if: false
     # if: |
-    #   always() && needs.smoke-test.result == 'success'
+    #   needs.smoke-test.result == 'success' &&
+    #   needs.build.outputs.on_pypi == 'false'
     runs-on: ubuntu-latest
     environment:
       name: release
