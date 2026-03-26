@@ -65,6 +65,7 @@ jobs:
       always() && (
         (github.event_name == 'push') ||
         (github.event_name == 'pull_request') ||
+        (github.event_name == 'workflow_dispatch') ||
         (needs.update.outputs.changed == 'true')
       )
     runs-on: ubuntu-latest
