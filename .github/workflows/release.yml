@@ -168,10 +168,9 @@ jobs:
   pypi-publish:
     name: Publish to PyPI
     needs: [build, smoke-test]
-    if: false
-    # if: |
-    #   needs.smoke-test.result == 'success' &&
-    #   needs.build.outputs.on_pypi == 'false'
+    if: |
+      needs.smoke-test.result == 'success' &&
+      needs.build.outputs.on_pypi == 'false'
     runs-on: ubuntu-latest
     environment:
       name: release
