@@ -56,4 +56,4 @@ See https://github.com/swagger-api/swagger-ui/blob/master/docs/usage/configurati
 
 Plugins and function parameters are not supported at this time.
 
-OAuth2 parameters can be found at https://github.com/swagger-api/swagger-ui#oauth2-configuration .
+OAuth2 parameters can be found at https://github.com/swagger-api/swagger-ui/blob/master/docs/usage/oauth2.md.
